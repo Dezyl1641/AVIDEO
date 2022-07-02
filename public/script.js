@@ -309,20 +309,20 @@ contactForm.addEventListener('submit', (e) => {
     // email.value = '';
 })
 
-let xhr = new XMLHttpRequest();
-xhr.open('POST', '/room');
-xhr.setRequestHeader('content-type', 'application/json');
-xhr.onload = function() {
-  console.log(xhr.responseText);
-  if(xhr.responseText == 'success'){
-    alert('Email sent!');
-    email.value = '';
-  }
-  else{
-    alert('Something went wrong')
-  }
-}
+// let xhr = new XMLHttpRequest();
+// xhr.open('POST', '/room');
+// xhr.setRequestHeader('content-type', 'application/json');
+// xhr.onload = function() {
+//   console.log(xhr.responseText);
+//   if(xhr.responseText == 'success'){
+//     alert('Email sent!');
+//     email.value = '';
+//   }
+//   else{
+//     alert('Something went wrong')
+//   }
+// }
 
-xhr.send(JSON.stringify(formData));
+// xhr.send(JSON.stringify(formData));
 
 
