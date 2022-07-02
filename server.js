@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 const nodemailer = require("nodemailer");
 const router = require("express").Router();
 
-// const keys = require('./config/keys')
+const keys = require('./config/keys')
 const passportSetup = require('./config/passport-setup')
 
 // const passport = require('passport');
@@ -186,7 +186,7 @@ app.get('/', (req,res)=>{
 
 
 const port = process.env.PORT || 3000;
-app.listen(port, function(){
+server.listen(port, function(){
     console.log("server started!");
 });
 
