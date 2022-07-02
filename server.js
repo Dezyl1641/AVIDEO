@@ -181,7 +181,7 @@ mongoose
 
 
 const port = process.env.PORT || 3000;
-app.listen(port, function(){
+server.listen(port, function(){
     console.log("server started!");
 });
 
