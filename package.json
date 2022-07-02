@@ -15,17 +15,23 @@
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
     "peer": "^0.6.1",
+    "serve": "^13.0.2",
     "socket.io": "^4.5.1",
     "url": "^0.11.0",
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "start": "node server.js"
+    "dev": "react-scripts start",
+    "start": "serve -s build",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "name": "gmeet",
   "version": "1.0.0",
   "engines": {
-    "node": "16.15.1"
+    "node": ">= 16.15.1"
   },
   "description": "gmeet clone",
   "main": "server.js",
