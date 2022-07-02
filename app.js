@@ -1,39 +1,39 @@
 const express = require("express");
 const app = express();
-const server = require("http").Server(app);
-const io = require("socket.io")(server);
-var cors = require('cors');
-app.use(cors());
-app.use(express.static("public"));
-app.set("view engine", "ejs");
-const { ExpressPeerServer } = require("peer");
-const peerServer = ExpressPeerServer(server, {
-    debug: true,
-});
-app.use("/peerjs", peerServer);
-const { v4: uuidV4 } = require('uuid')
-require('dotenv').config()
-const cookieParser = require('cookie-parser');
-var session = require('express-session');
-app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: 'bla bla bla' 
-  }));
-const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-const nodemailer = require("nodemailer");
-const keys = require('./config/keys')
+// const server = require("http").Server(app);
+// const io = require("socket.io")(server);
+// var cors = require('cors');
+// app.use(cors());
+// app.use(express.static("public"));
+// app.set("view engine", "ejs");
+// const { ExpressPeerServer } = require("peer");
+// const peerServer = ExpressPeerServer(server, {
+//     debug: true,
+// });
+// app.use("/peerjs", peerServer);
+// const { v4: uuidV4 } = require('uuid')
+// require('dotenv').config()
+// const cookieParser = require('cookie-parser');
+// var session = require('express-session');
+// app.use(session({
+//     resave: false,
+//     saveUninitialized: true,
+//     secret: 'bla bla bla' 
+//   }));
+// const bodyParser = require("body-parser");
+// app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());
+// const nodemailer = require("nodemailer");
+// const keys = require('./config/keys')
 
-const passportSetup = require('./config/passport-setup')
-const router = require("express").Router();
-const passport = require('passport');
-app.use(passport.initialize());
-app.use(passport.session());
+// const passportSetup = require('./config/passport-setup')
+// const router = require("express").Router();
+// const passport = require('passport');
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 
-var username = "initialUsername";
+// var username = "initialUsername";
 
 
 // const authCheck = (req, res, next) => {
