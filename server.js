@@ -234,8 +234,7 @@ mongoose
 
 // app.use('/auth', authRoutes.router);
 
-
-port: process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 server.listen(port, function(){
     console.log("server started!");
 });
