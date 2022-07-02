@@ -47,10 +47,10 @@ const authCheck = (req, res, next) => {
     // next();
 };
 
-app.get('/home', authCheck, (req,res)=>{
-    // res.render('home', {user: username});
-    res.render('test', {user: username});
-})
+// app.get('/home', authCheck, (req,res)=>{
+//     // res.render('home', {user: username});
+//     res.render('test');
+// })
 
 // app.get("/room", authCheck, function(req, res){
 //     res.redirect(`/${uuidV4()}`);
@@ -74,7 +74,8 @@ app.get('/', (req,res)=>{
     // console.log(link);
     // res.render('login');
     // res.send("Hi");
-    res.redirect('/home');
+    // res.redirect('/home');
+    res.render('test');
 })
 
 // app.get('/auth/login', (req,res)=>{
