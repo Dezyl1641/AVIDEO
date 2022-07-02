@@ -71,10 +71,10 @@ function fullUrl(req) {
 
 var link;
 app.get('/', (req,res)=>{
-    // link = fullUrl(req);
-    // console.log(link);
-    // res.render('login');
-    res.send("Hi");
+    link = fullUrl(req);
+    console.log(link);
+    res.render('login');
+    // res.send("Hi");
     // res.redirect('/home');
     // res.render('test');
 })
