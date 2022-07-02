@@ -38,12 +38,12 @@ var username = "initialUsername";
 
 const authCheck = (req, res, next) => {
     // console.log(username);
-    if(username === "initialUsername"){
-        res.render('404');
-    } else {
-        next();
-    }
-    // next();
+    // if(username === "initialUsername"){
+    //     res.render('404');
+    // } else {
+    //     next();
+    // }
+    next();
 };
 
 app.get('/home', authCheck, (req,res)=>{
