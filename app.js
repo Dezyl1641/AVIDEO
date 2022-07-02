@@ -48,7 +48,8 @@ const authCheck = (req, res, next) => {
 };
 
 app.get('/home', authCheck, (req,res)=>{
-    res.render('home', {user: username});
+    // res.render('home', {user: username});
+    res.render('test', {user: username});
 })
 
 // app.get("/room", authCheck, function(req, res){
