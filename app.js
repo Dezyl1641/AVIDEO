@@ -73,9 +73,9 @@ app.get('/', (req,res)=>{
     // link = fullUrl(req);
     // console.log(link);
     // res.render('login');
-    // res.send("Hi");
+    res.send("Hi");
     // res.redirect('/home');
-    res.render('test');
+    // res.render('test');
 })
 
 // app.get('/auth/login', (req,res)=>{
