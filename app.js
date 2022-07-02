@@ -51,21 +51,21 @@ app.get('/home', authCheck, (req,res)=>{
     res.render('home', {user: username});
 })
 
-app.get("/room", authCheck, function(req, res){
-    res.redirect(`/${uuidV4()}`);
-    // res.redirect("/uuidV4()");
-});
+// app.get("/room", authCheck, function(req, res){
+//     res.redirect(`/${uuidV4()}`);
+//     // res.redirect("/uuidV4()");
+// });
 
-var email;
-var url = require('url');
+// var email;
+// var url = require('url');
 
-function fullUrl(req) {
-  return url.format({
-    protocol: req.protocol,
-    host: req.get('host'),
-    pathname: req.originalUrl
-  });
-}
+// function fullUrl(req) {
+//   return url.format({
+//     protocol: req.protocol,
+//     host: req.get('host'),
+//     pathname: req.originalUrl
+//   });
+// }
 
 // var link;
 app.get('/', (req,res)=>{
@@ -113,59 +113,59 @@ app.get('/', (req,res)=>{
 // })
 
 
-var ROOM_ID;
-app.get("/:room", authCheck,  function(req, res){
-    var temp =  req.params.room;
-    if(temp.length > 12) ROOM_ID = req.params.room;
-    // console.log(ROOM_ID);
-    res.render("room", {roomId: req.params.room, user: username});
-});
+// var ROOM_ID;
+// app.get("/:room", authCheck,  function(req, res){
+//     var temp =  req.params.room;
+//     if(temp.length > 12) ROOM_ID = req.params.room;
+//     // console.log(ROOM_ID);
+//     res.render("room", {roomId: req.params.room, user: username});
+// });
 
 
 
-app.post('/room', (req, res) => {
-    console.log("hue");
-    console.log(req.body);
-    email = req.body.email;
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: keys.credentials.email,
-            pass: keys.credentials.password
-        }
-    })
+// app.post('/room', (req, res) => {
+//     console.log("hue");
+//     console.log(req.body);
+//     email = req.body.email;
+//     const transporter = nodemailer.createTransport({
+//         service: 'gmail',
+//         auth: {
+//             user: keys.credentials.email,
+//             pass: keys.credentials.password
+//         }
+//     })
 
-    const mailOptions = {
-        from: 'dezylsolanki3@gmail.com',
-        to: email,
-        subject: 'Meet reminder!',
-        text: `Your meet with ${username} is about to start. The Room ID is ${link}${ROOM_ID}`
-    }
+//     const mailOptions = {
+//         from: 'dezylsolanki3@gmail.com',
+//         to: email,
+//         subject: 'Meet reminder!',
+//         text: `Your meet with ${username} is about to start. The Room ID is ${link}${ROOM_ID}`
+//     }
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if(error){
-            console.log(email);
-            console.log(error);
-        }
-        else{
-            console.log('success');
-            alert('Email sent!');
-        }
-    })
-})
+//     transporter.sendMail(mailOptions, (error, info) => {
+//         if(error){
+//             console.log(email);
+//             console.log(error);
+//         }
+//         else{
+//             console.log('success');
+//             alert('Email sent!');
+//         }
+//     })
+// })
 
 
-io.sockets.on("connection", (socket) => {
-    socket.on("join-room", (roomId, userId) => { //roomId, userId
-        socket.join(roomId);
-        // socket.to(roomId).broadcast.emit("user-connected");
-        socket.broadcast.to(roomId).emit("user-connected", userId);
-        // console.log("room joined");
-        socket.on('message', (message) => {
-            io.to(roomId).emit('createMessage', message)
-        }); 
-    });
-});
+// io.sockets.on("connection", (socket) => {
+//     socket.on("join-room", (roomId, userId) => { //roomId, userId
+//         socket.join(roomId);
+//         // socket.to(roomId).broadcast.emit("user-connected");
+//         socket.broadcast.to(roomId).emit("user-connected", userId);
+//         // console.log("room joined");
+//         socket.on('message', (message) => {
+//             io.to(roomId).emit('createMessage', message)
+//         }); 
+//     });
+// });
 
 
 // app.use(express.json());
