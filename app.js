@@ -38,11 +38,12 @@ var username = "initialUsername";
 
 const authCheck = (req, res, next) => {
     // console.log(username);
-    if(username === "initialUsername"){
-        res.render('404');
-    } else {
-        next();
-    }
+    next();
+    // if(username === "initialUsername"){
+    //     res.render('404');
+    // } else {
+    //     next();
+    // }
     // next();
 };
 
@@ -68,47 +69,48 @@ function fullUrl(req) {
 
 // var link;
 app.get('/', (req,res)=>{
-    link = fullUrl(req);
-    console.log(link);
-    res.render('login');
+    // link = fullUrl(req);
+    // console.log(link);
+    // res.render('login');
     // res.send("Hi");
-})
-
-app.get('/auth/login', (req,res)=>{
-    res.render('login');
-})
-
-app.get('/auth/google', passport.authenticate('google', {
-    scope: ['profile'],
-    // prompt: 'select_account'
-}));
-
-
-app.get('/auth/logout', (req,res,next)=>{
-    // req.session.destroy();
-    console.log("hue");
-    req.logout(function(err) {
-        
-        if (err) { return next(err); }
-        res.redirect('/');
-    });
-    
-})
-app.get('/auth/logout', (req,res,next)=>{
-    // req.session.destroy();
-    console.log("hue");
-    req.logout(function(err) {
-        
-        if (err) { return next(err); }
-        res.redirect('/');
-    });
-    console.log(username);
-})
-
-app.get('/auth/google/redirect', passport.authenticate('google'), (req,res)=>{
-    username = req.user.username;
     res.redirect('/home');
 })
+
+// app.get('/auth/login', (req,res)=>{
+//     res.render('login');
+// })
+
+// app.get('/auth/google', passport.authenticate('google', {
+//     scope: ['profile'],
+//     // prompt: 'select_account'
+// }));
+
+
+// app.get('/auth/logout', (req,res,next)=>{
+//     // req.session.destroy();
+//     console.log("hue");
+//     req.logout(function(err) {
+        
+//         if (err) { return next(err); }
+//         res.redirect('/');
+//     });
+    
+// })
+// app.get('/auth/logout', (req,res,next)=>{
+//     // req.session.destroy();
+//     console.log("hue");
+//     req.logout(function(err) {
+        
+//         if (err) { return next(err); }
+//         res.redirect('/');
+//     });
+//     console.log(username);
+// })
+
+// app.get('/auth/google/redirect', passport.authenticate('google'), (req,res)=>{
+//     username = req.user.username;
+//     res.redirect('/home');
+// })
 
 
 var ROOM_ID;
@@ -166,18 +168,18 @@ io.sockets.on("connection", (socket) => {
 });
 
 
-app.use(express.json());
+// app.use(express.json());
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const MONGO_PROD_URI = keys.mongodb.dbURL;
-mongoose 
- .connect(MONGO_PROD_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-           })   
- .then(() => console.log("Database connected!"))
- .catch(err => console.log(err));
+// const MONGO_PROD_URI = keys.mongodb.dbURL;
+// mongoose 
+//  .connect(MONGO_PROD_URI, {
+//         useNewUrlParser: true,
+//         useUnifiedTopology: true,
+//            })   
+//  .then(() => console.log("Database connected!"))
+//  .catch(err => console.log(err));
 
 
 const port = process.env.PORT || 3000;
