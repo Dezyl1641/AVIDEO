@@ -80,7 +80,7 @@ app.get('/auth/login', (req,res)=>{
 
 app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile'],
-    // prompt: 'select_account'
+    prompt: 'select_account'
 }));
 
 
@@ -179,7 +179,7 @@ mongoose
  .then(() => console.log("Database connected!"))
  .catch(err => console.log(err));
 
-
+ 
 const port = process.env.PORT || 3000;
 server.listen(port, function(){
     console.log("server started!");
