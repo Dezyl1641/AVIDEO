@@ -36,16 +36,16 @@ app.use(passport.session());
 var username = "initialUsername";
 
 
-const authCheck = (req, res, next) => {
-    // console.log(username);
-    next();
-    // if(username === "initialUsername"){
-    //     res.render('404');
-    // } else {
-    //     next();
-    // }
-    // next();
-};
+// const authCheck = (req, res, next) => {
+//     // console.log(username);
+//     // next();
+//     if(username === "initialUsername"){
+//         res.render('404');
+//     } else {
+//         next();
+//     }
+//     next();
+// };
 
 // app.get('/home', authCheck, (req,res)=>{
 //     // res.render('home', {user: username});
