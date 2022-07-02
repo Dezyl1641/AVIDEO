@@ -13,7 +13,7 @@ const peerServer = ExpressPeerServer(server, {
 app.use("/peerjs", peerServer);
 const { v4: uuidV4 } = require('uuid')
 require('dotenv').config()
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 var session = require('express-session');
 app.use(session({
     resave: false,
@@ -24,11 +24,10 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 const nodemailer = require("nodemailer");
-const router = require("express").Router();
-
 const keys = require('./config/keys')
-const passportSetup = require('./config/passport-setup')
 
+const passportSetup = require('./config/passport-setup')
+const router = require("express").Router();
 const passport = require('passport');
 app.use(passport.initialize());
 app.use(passport.session());
@@ -39,18 +38,16 @@ var username = "initialUsername";
 
 const authCheck = (req, res, next) => {
     // console.log(username);
-    // next();
     if(username === "initialUsername"){
         res.render('404');
     } else {
         next();
     }
-    next();
+    // next();
 };
 
 app.get('/home', authCheck, (req,res)=>{
-    // res.render('home', {user: username});
-    res.render('test');
+    res.render('home', {user: username});
 })
 
 app.get("/room", authCheck, function(req, res){
@@ -69,14 +66,12 @@ function fullUrl(req) {
   });
 }
 
-var link;
+// var link;
 app.get('/', (req,res)=>{
     link = fullUrl(req);
     console.log(link);
     res.render('login');
     // res.send("Hi");
-    // res.redirect('/home');
-    // res.render('test');
 })
 
 app.get('/auth/login', (req,res)=>{
@@ -158,31 +153,31 @@ app.post('/room', (req, res) => {
 })
 
 
-// io.sockets.on("connection", (socket) => {
-//     socket.on("join-room", (roomId, userId) => { //roomId, userId
-//         socket.join(roomId);
-//         // socket.to(roomId).broadcast.emit("user-connected");
-//         socket.broadcast.to(roomId).emit("user-connected", userId);
-//         // console.log("room joined");
-//         socket.on('message', (message) => {
-//             io.to(roomId).emit('createMessage', message)
-//         }); 
-//     });
-// });
+io.sockets.on("connection", (socket) => {
+    socket.on("join-room", (roomId, userId) => { //roomId, userId
+        socket.join(roomId);
+        // socket.to(roomId).broadcast.emit("user-connected");
+        socket.broadcast.to(roomId).emit("user-connected", userId);
+        // console.log("room joined");
+        socket.on('message', (message) => {
+            io.to(roomId).emit('createMessage', message)
+        }); 
+    });
+});
 
 
-// app.use(express.json());
+app.use(express.json());
 
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// const MONGO_PROD_URI = keys.mongodb.dbURL;
-// mongoose 
-//  .connect(MONGO_PROD_URI, {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//            })   
-//  .then(() => console.log("Database connected!"))
-//  .catch(err => console.log(err));
+const MONGO_PROD_URI = keys.mongodb.dbURL;
+mongoose 
+ .connect(MONGO_PROD_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+           })   
+ .then(() => console.log("Database connected!"))
+ .catch(err => console.log(err));
 
 
 const port = process.env.PORT || 3000;
