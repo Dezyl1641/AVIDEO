@@ -41,12 +41,7 @@ video {
   display: flex;
 }
 
-.main__left {
-  flex: 0.7;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-}
+
 
 .videos__group {
   flex-grow: 1;
@@ -72,6 +67,9 @@ video {
   padding: 1rem;
   display: flex;
   background-color: black;
+}
+.options.active {
+  background-color: white;
 }
 
 .options__left {
@@ -104,12 +102,7 @@ video {
   background-color: #f6484a;
 }
 
-.main__right {
-  display: flex;
-  flex-direction: column;
-  flex: 0.3;
-  background-color: rgb(28, 27, 27);
-}
+
 
 .main__chat_window {
   flex-grow: 1;
@@ -128,7 +121,7 @@ video {
 }
 
 .main__message_container > input {
-  height: 50px;
+  height: 30px;
   flex: 1;
   font-size: 1rem;
   border-radius: 5px;
@@ -221,7 +214,55 @@ video {
   border: 2px solid white;
 }
 
+#email.active {
+  background-color: black;
+  border: 2px solid white;
+}
+
 #submit {
   background-color: black;
   border: 2px solid white;
+}
+
+.main__left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+/* .main_left{
+  flex : 1;
+  display : flex;
+  flex-direction: column;
+} */
+
+/*toggled class*/
+/* .main__left.active{
+  flex:0.8;
+  display:flex;
+  flex-direction: column;
+} */
+
+
+.main__right {
+  display: flex;
+  width:0px;
+  flex-direction: column;
+  overflow:hidden;
+  transition: 0.5s;
+  /* flex: 0.3; */
+  background-color: rgb(28, 27, 27);
+}
+
+/* .main_right{
+  width:0px;
+  overflow:hidden;
+  transition: 0.5s;
+} */
+
+/*toggled class*/
+.main__right.active{
+  flex:0.2;
+  overflow:auto;
+  transition:0.5s
 }

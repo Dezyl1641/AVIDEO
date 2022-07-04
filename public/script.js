@@ -10,6 +10,7 @@ var screenStream;
 var mediaRecorder;
 const parts = [];
 var peer = new Peer();
+var screenCount = 1;
 
 navigator.mediaDevices.getUserMedia({
     audio: true,
@@ -40,13 +41,13 @@ navigator.mediaDevices.getUserMedia({
     $('html').keydown(function (e) {
       if (e.which == 13 && text.val().length !== 0) {
         // console.log(text.val());
-        socket.emit('message', text.val());
+        socket.emit('message', text.val(), NAME);
         text.val('')
         
       }
     });
-    socket.on("createMessage", message => {
-      $(".messages").append(`<div class = "font-bold text-gray-300">` + NAME + `</div><div class="message"></div>${message}</div>`);
+    socket.on("createMessage", (message, by) => {
+      $(".messages").append(`<div class = "font-bold text-gray-300">` + by + `</div><div class="message"></div>${message}</div>`);
       scrollToBottom();
     })
 });
@@ -65,9 +66,28 @@ const connecToNewUser = (userId, stream) => {
     });
 };
 
+/*toggled active class*/
+const left = $('.main__left');
+const right = $('.main__right');
+$('#chat').click(function(){
+  left.toggleClass('active');
+  right.toggleClass('active');
+});
+
+// const a = $('.options');
+// const b = $('.main__left');
+// $('#newoption').click(function(){
+//   console.log("hue");
+//   a.toggleClass('active');
+//   b.css('background', '#ccc');
+// });
+
 
 function addVideoStream (video, stream){
-    
+    // screenCount++;
+    // if(screenCount == 2){
+    //   $('video').animate({height:'300px', width: '400px'}, 500);
+    // }
     video.srcObject = stream;
     video.addEventListener("loadedmetadata", () => {
        video.play();
@@ -150,6 +170,10 @@ const scrollToBottom = () => {
 
 // -------------------------SCREENSHARE-------------------------------
 
+const screenPeer = new Peer();
+screenPeer.on('open', id => {
+  screenID = id;
+})
 
 const shareScreen = document.getElementById("shareScreen");
 function startScreenShare() {

@@ -34,20 +34,21 @@ app.use(passport.session());
 
 
 var username = "initialUsername";
-
+var USER_ID = "initialUserId"
+var userMap = new Map();
 
 const authCheck = (req, res, next) => {
     // console.log(username);
-    // if(username === "initialUsername"){
-    //     res.render('404');
-    // } else {
-    //     next();
-    // }
-    next();
+    if(username === "initialUsername"){
+        res.render('404');
+    } else {
+        next();
+    }
+    // next();
 };
 
 app.get('/home', authCheck, (req,res)=>{
-    res.render('home', {user: username});
+    res.render('home', {user: username, userId: USER_ID, userList: userMap});
 })
 
 app.get("/room", authCheck, function(req, res){
@@ -80,7 +81,7 @@ app.get('/auth/login', (req,res)=>{
 
 app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile'],
-    prompt: 'select_account'
+    // prompt: 'select_account'
 }));
 
 
@@ -107,6 +108,9 @@ app.get('/auth/logout', (req,res,next)=>{
 
 app.get('/auth/google/redirect', passport.authenticate('google'), (req,res)=>{
     username = req.user.username;
+    USER_ID = `${uuidV4()}`;
+    userMap.set(USER_ID, username);
+    console.log(`hue ${userMap.get(USER_ID)}`);
     res.redirect('/home');
 })
 
@@ -116,7 +120,7 @@ app.get("/:room", authCheck,  function(req, res){
     var temp =  req.params.room;
     if(temp.length > 12) ROOM_ID = req.params.room;
     // console.log(ROOM_ID);
-    res.render("room", {roomId: req.params.room, user: username});
+    res.render("room", {roomId: req.params.room, user: req.user.username});
 });
 
 
@@ -159,8 +163,8 @@ io.sockets.on("connection", (socket) => {
         // socket.to(roomId).broadcast.emit("user-connected");
         socket.broadcast.to(roomId).emit("user-connected", userId);
         // console.log("room joined");
-        socket.on('message', (message) => {
-            io.to(roomId).emit('createMessage', message)
+        socket.on('message', (message, name) => {
+            io.to(roomId).emit('createMessage', message, name)
         }); 
     });
 });
